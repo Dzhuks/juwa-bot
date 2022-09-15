@@ -14,7 +14,10 @@ logger = logging.getLogger(__name__)
 
 
 def start_command(update, context):
-    pass
+    username = f"{update.message.chat.first_name} {update.message.chat.last_name}"
+    update.message.reply_text(f"""
+    Сәлем, {username}!\nМен ювениалды бот-консультантпын!\n\nҚызықтыратын категорияға басып, сонда тақырыпты тандап, өз құқықтарын біл.
+""")
 
 
 def help_command(update, context):
