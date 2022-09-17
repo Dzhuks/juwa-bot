@@ -1,9 +1,7 @@
 # Импортируем необходимые классы.
 import logging
 
-from telegram.ext import Updater, CommandHandler
-
-from config import App
+from config import Config
 
 # Запускаем логгирование
 logging.basicConfig(
@@ -14,10 +12,11 @@ logger = logging.getLogger(__name__)
 
 
 def start_command(update, context):
-    username = f"{update.message.chat.first_name} {update.message.chat.last_name}"
-    update.message.reply_text(f"""
-    Сәлем, {username}!\nМен ювениалды бот-консультантпын!\n\nҚызықтыратын категорияға басып, сонда тақырыпты тандап, өз құқықтарын біл.
-""")
+    username = "fjdk"
+    f"""
+        Сәлем, {username}!\nМен ювениалды бот-консультантпын!\n\nҚызықтыратын категорияға басып, сонда тақырыпты тандап, өз құқықтарын біл.
+    """
+    pass
 
 
 def help_command(update, context):
@@ -25,15 +24,10 @@ def help_command(update, context):
 
 
 def main():
-    updater = Updater(App.config("BOT_TOKEN"))
-
-    dp = updater.dispatcher
-    dp.add_handler(CommandHandler("start", start_command))
-    dp.add_handler(CommandHandler("help", help_command))
-
-    updater.start_polling()
-    updater.idle()
+    pass
 
 
 if __name__ == '__main__':
-    main()
+    config = Config()
+    print(config.get("BOT_TOKEN"))
+    # main(
