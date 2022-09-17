@@ -4,7 +4,7 @@ import aiogram.types
 from aiogram import Bot, types
 from aiogram.dispatcher import Dispatcher
 from aiogram.utils import executor
-from aiogram.utils.markdown import bold
+from aiogram.utils.markdown import bold, text
 
 import keyboards as kb
 from config import Config
@@ -40,9 +40,19 @@ async def start_command(message: types.Message):
     )
 
 
+help_message = text(
+    "Құқық - мемлекет орнатқан және оның күшімен қорғалатын, жалпыға бірдей қоғамдық қатынастарды реттейтін тәртіп ережелерінің ( нормалардың ) жиынтығы. Құқықтың түсініктері бірнеше, бірақ мазмұндары біреу-ақ.",
+    "Оған жеке бастың құпиясын сақтау құқығы, өмір сүру құқығы, некеге тұрған азаматтардың құқықтары және тағыда басқалар жатады\n",
+    "Командалар:",
+    "/start - бот жұмыс жасауды бастайды",
+    "/help - ботпен пайдаланушымен таныстыру",
+    sep="\n"
+)
+
+
 @dp.message_handler(commands=['help'])
 async def help_command(message: types.Message):
-    pass
+    await message.reply(help_message)
 
 
 def main():
