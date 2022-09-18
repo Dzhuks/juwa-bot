@@ -31,37 +31,52 @@ async def process_callback_button1(callback_query: types.CallbackQuery):
 async def start_command(message: types.Message):
     username = message.from_user.full_name
     start_message = text(
-        f"Сәлем, {bold(username)}!",
-        f"Мен ювениалды бот-консультантпын!\n",
-        f"Қызықтыратын категорияға басып, сонда тақырыпты тандап, өз құқықтарын біл.\n",
-        f"Егер тілді өзгерткін келсе, /setting командасына басып, қолайлы тілді таңдаңыз\n",
-        f"Егер боттың жұмысына сұрақтар болса, /help командасына басыңыз.",
+        f"Сәлем, {bold(username)}!\n",
+        f"Мен ювенальды бот-консультантпын! Бастау үшін /cl командасын терініз немесе оған басыңыз.\n",
+        f"/help - бот қолдану туралы көмек алу",
+        f"/lang - қолданылатын тілді ауыстыру\n",
+        f"Бот құқықтар туралы барлық ақпаратты ресми заңды құжаттардан алады және оны қарапайым, әрі түсінікті тілде түсіндіреді.",
+        "Барлық дереккөздерге сілтемелер хабарламаның соңында болады.",
         sep='\n'
     )
     await message.reply(
         start_message,
-        parse_mode=aiogram.types.ParseMode.MARKDOWN,
-        reply_markup=kb.inline_kb1
+        parse_mode=aiogram.types.ParseMode.MARKDOWN
     )
+
+
+@dp.message_handler(commands=['about'])
+async def about_command(message: types.Message):
+    pass
 
 
 @dp.message_handler(commands=['help'])
 async def help_command(message: types.Message):
     help_message = text(
-        "Құқық - мемлекет орнатқан және оның күшімен қорғалатын, жалпыға бірдей қоғамдық қатынастарды реттейтін тәртіп ережелерінің ( нормалардың ) жиынтығы. Құқықтың түсініктері бірнеше, бірақ мазмұндары біреу-ақ.",
-        "Оған жеке бастың құпиясын сақтау құқығы, өмір сүру құқығы, некеге тұрған азаматтардың құқықтары және тағыда басқалар жатады\n",
+        f"{bold('Құқық')} - мемлекет орнатқан және оның күшімен қорғалатын, жалпыға бірдей қоғамдық қатынастарды реттейтін тәртіп ережелерінің ( нормалардың ) жиынтығы.\n",
+        "Оған жеке бастың құпиясын сақтау құқығы, өмір сүру құқығы, некеге тұрған азаматтардың құқықтары және тағыда басқалар жатады.\n",
+        f"{bold('Ботты қалай қолдану:')}",
+        "1. /cl командасын теру",
+        "2. Аталған категориялар ішінен біреуін таңдаңыз",
+        "3. Шыққан тақырыптарын ішінен біреуін тандап, өз құқықтарынызды зерттеніз\n",
         "Командалар:",
-        "/start - бот жұмыс жасауды бастайды",
-        "/help - ботпен пайдаланушымен таныстыру",
+        "/about - бот туралы жалпы ақпарат шығару",
+        "/lang - қолданылатын тілді ауыстыру",
+        "/cl - бала құқықтар категорияларын шығару",
         sep="\n"
     )
-    await message.reply(help_message)
+    await message.reply(help_message, parse_mode=aiogram.types.ParseMode.MARKDOWN)
+
+
+@dp.message_handler(commands=['lang'])
+async def lang_command(message: types.Message):
+    pass
 
 
 # выводить все категории
 @dp.message_handler(commands=['cl'])
 async def clause_command(message: types.Message):
-    pass
+    await message.reply("Аталған категориялар ішінен біреуін таңданыз", reply_markup=kb.inline_kb1)
 
 
 def main():
